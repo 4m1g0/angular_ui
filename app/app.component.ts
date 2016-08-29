@@ -12,4 +12,5 @@ import {MainPanelComponent} from "./mainPanel.component";
 export class AppComponent {
     master = 'Master Node';
     nodes = ['Test node1', 'Test node2'];
+
 }

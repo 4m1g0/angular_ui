@@ -1,5 +1,5 @@
 body {
-    background: white url("../img/background.png");
+    background: white url("img/background.png");
 }
 
 .navbar {
@@ -8,7 +8,8 @@ body {
 
 .navbar-brand {
     color: #fff !important;
-    font-family: 'Lobster', cursive;
+    /*font-family: 'Lobster', cursive;*/
+    font-family: 'Skranji', cursive;
     font-size: 2em;
 }
 
@@ -30,4 +31,16 @@ body {
 }
 .navbar-nav .dropdown {
     min-width: 158px;
+}
+
+.chart {
+    display: block;
+}
+
+.widget {
+    background-color: rgba(255, 255, 255, 0.46);
+    border-radius: 20px;
+}
+.row {
+    margin: 20px 0;
 }
