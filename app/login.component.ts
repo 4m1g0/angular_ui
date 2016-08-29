@@ -6,4 +6,7 @@ import {Component} from '@angular/core';
 })
 
 export class LoginComponent {
+    login (token: string) {
+        console.log(token);
+    }
 }
