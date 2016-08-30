@@ -12,21 +12,41 @@ import {HistoryService} from "./history.service";
 
 export class HistoryComponent {
     errorMessage: string;
-    history: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    history: number[];
     mode = 'Observable';
     loaded = false;
     @Input() token:string;
+    public lineChartLabels:Array<any> =[];
 
     public lineChartData:Array<any>;
 
-    constructor (private historyService: HistoryService) {}
+    constructor (private historyService: HistoryService) {
+        var date = new Date();
+        date.setHours(date.getHours()-1);
+        for (var i=0; i <= 30; i++){
+            if (i % 5 == 0)
+                this.lineChartLabels[i] = this.stringFromNumber(date.getHours()) + ':' + this.stringFromNumber(date.getMinutes());
+            else
+                this.lineChartLabels[i] = '';
 
-    ngOnInit() { this.getPrices(); }
+            date.setMinutes(date.getMinutes() + 2);
+        }
+    }
 
-    getPrices() {
+    stringFromNumber(number){
+        var text = '';
+        if (number < 10)
+            text += '0';
+
+        return text + number;
+    }
+
+    ngOnInit() { this.getHistory(); }
+
+    getHistory() {
         this.historyService.getHistory(this.token)
             .subscribe(
-                history => {this.history = history.map((value) => { return value / 1 } ); console.log("AAAA" + history); this.isLoaded()},
+                history => {this.history = history.map((value) => { return value * 230 / 100 } ); console.log("AAAA" + history); this.isLoaded()},
                 error =>  this.errorMessage = <any>error);
     }
 
@@ -38,8 +58,6 @@ export class HistoryComponent {
         this.loaded = true;
     }
 
-
-    public lineChartLabels:Array<any> = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
     public lineChartOptions:any = {
         animation: false,
         responsive: true
