@@ -14,5 +14,14 @@ import {MockComponent} from "./mock.component";
 export class AppComponent {
     master = 'Master Node';
     nodes = ['Test node1', 'Test node2'];
+    token: string;
+
+    eventLogin(token) {
+        this.token = token;
+    }
+
+    eventLogout(token) {
+        this.token = null;
+    }
 
 }

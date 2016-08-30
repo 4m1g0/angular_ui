@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'login',
@@ -6,7 +6,13 @@ import {Component} from '@angular/core';
 })
 
 export class LoginComponent {
+    token: string;
+
     login (token: string) {
+        this.token = token;
         console.log(token);
+        this.eventLogin.emit(this.token);
     }
+
+    @Output() eventLogin = new EventEmitter();
 }

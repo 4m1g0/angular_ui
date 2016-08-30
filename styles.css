@@ -35,12 +35,24 @@ body {
 
 .chart {
     display: block;
+
 }
 
 .widget {
     background-color: rgba(255, 255, 255, 0.46);
     border-radius: 20px;
+    min-height: 318px;
 }
+
 .row {
     margin: 20px 0;
+}
+
+.fa-usd, .fa-history {
+    color: rgba(0, 0, 0, 0.65)
+}
+
+.spinner {
+    margin: 70px auto;
+    display: block;
 }

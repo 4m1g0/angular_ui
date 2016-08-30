@@ -1,5 +1,6 @@
-<h2>Energy price</h2>
-<base-chart class="chart"
+<h2><i class="fa fa-usd fa-lg" aria-hidden="true">&nbsp;</i>Energy price</h2>
+<img *ngIf="!loaded" class="spinner" src="../img/ring-alt.svg">
+<base-chart *ngIf="loaded" class="chart"
             [datasets]="lineChartData"
             [labels]="lineChartLabels"
             [options]="lineChartOptions"

@@ -1,19 +1,43 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
 import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
+import {PricingService} from "./pricing.service";
 
 @Component({
     selector: 'prices',
     templateUrl: 'app/price.component.html',
-    directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES]
+    directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
+    providers: [PricingService]
 })
 
-export class PriceComponent {
+export class PriceComponent implements OnInit {
+    errorMessage: string;
+    prices: number[] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    mode = 'Observable';
+    loaded = false;
+    public lineChartData:Array<any>;
+
+    constructor (private pricingService: PricingService) {}
+
+    ngOnInit() { this.getPrices(); }
+
+    getPrices() {
+        this.pricingService.getPrices()
+            .subscribe(
+                prices => {this.prices = prices.map((value) => { return value / 100000 }); this.isLoaded()},
+                error =>  this.errorMessage = <any>error);
+    }
+
     // lineChart
-    public lineChartData:Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Cost (€/KWh)'},
-    ];
-    public lineChartLabels:Array<any> = [1, 2, 3, 4, 5, 6, 7];
+    isLoaded(){
+        this.loaded = true;
+        this.lineChartData = [
+            {data: this.prices, label: 'Cost (€/KWh)'},
+        ];
+    }
+
+
+    public lineChartLabels:Array<any> = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'];
     public lineChartOptions:any = {
         animation: false,
         responsive: true
