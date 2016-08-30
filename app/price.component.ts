@@ -30,10 +30,10 @@ export class PriceComponent implements OnInit {
 
     // lineChart
     isLoaded(){
-        this.loaded = true;
         this.lineChartData = [
             {data: this.prices, label: 'Cost (€/KWh)'},
         ];
+        this.loaded = true;
     }
 
 

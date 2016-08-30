@@ -1,3 +1,3 @@
 <navbar [nodes]="nodes" [master]="master" (eventLogout)="eventLogout($event)"></navbar>
 <login [hidden]="token!=null" (eventLogin)="eventLogin($event)"></login>
-<main-panel *ngIf="token!=null"></main-panel>
+<main-panel *ngIf="token!=null" [token]="token"></main-panel>

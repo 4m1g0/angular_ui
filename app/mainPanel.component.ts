@@ -5,7 +5,8 @@ import {HistoryComponent} from "./history.component";
 @Component({
     selector: 'main-panel',
     templateUrl: 'app/mainPanel.component.html',
-    directives: [PriceComponent, HistoryComponent]
+    directives: [PriceComponent, HistoryComponent],
+    inputs: ['token']
 })
 
 export class MainPanelComponent {
