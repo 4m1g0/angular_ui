@@ -1,16 +1,16 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
 import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
-import {HistoryService} from "./history.service";
+import {IOTService} from "./IOT.service";
 
 @Component({
     selector: 'history',
     templateUrl: 'app/history.component.html',
     directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
-    providers: [HistoryService],
+    providers: [IOTService],
 })
 
-export class HistoryComponent {
+export class HistoryComponent implements OnInit {
     errorMessage: string;
     history: number[];
     mode = 'Observable';
@@ -20,7 +20,7 @@ export class HistoryComponent {
 
     public lineChartData:Array<any>;
 
-    constructor (private historyService: HistoryService) {
+    constructor (private historyService: IOTService) {
         var date = new Date();
         date.setHours(date.getHours()-1);
         for (var i=0; i <= 30; i++){

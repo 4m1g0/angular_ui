@@ -1,0 +1,23 @@
+<h2><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Module info</h2>
+
+<img [hidden]="loaded" class="spinner" src="../img/ring-alt.svg">
+<div [hidden]="!loaded" style="padding:20px 35px;;">
+    <div class="row">
+        <span style="font-size:1.4em;">Local time:&nbsp;</span><span style="font-size: 1.3em;font-weight: bold;">{{time}}</span>
+    </div>
+    <div class="row">
+        <span style="font-size:1.4em;">Node Status:&nbsp;</span><input id="checkbox" type="checkbox" name="my-checkbox" [(ngModel)]="info.s">
+    </div>
+    <div class="row">
+        <span style="font-size:1.4em;">Node mode:&nbsp;</span>
+        <select class="selectpicker">
+            <option>Schedulable</option>
+            <option>Real time</option>
+        </select>
+    </div>
+
+
+
+</div>
+
+

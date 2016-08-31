@@ -3,13 +3,12 @@ import {NavbarComponent} from "./navbar.component";
 import {LoginComponent} from "./login.component";
 import {MainPanelComponent} from "./mainPanel.component";
 import './rxjs-operators';
-import {MockComponent} from "./mock.component";
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
     selector: 'my-app',
     templateUrl: 'app/app.component.html',
-    directives: [NavbarComponent, LoginComponent, MainPanelComponent, MockComponent],
+    directives: [NavbarComponent, LoginComponent, MainPanelComponent],
     providers: [CookieService]
 })
 

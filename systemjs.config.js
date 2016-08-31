@@ -11,6 +11,7 @@
     'rxjs':                       'node_modules/rxjs',
     'ng2-charts':                 'node_modules/ng2-charts',
     'angular2-cookie':            'node_modules/angular2-cookie',
+    'symbol-observable':          'node_modules/symbol-observable',
   };
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
@@ -19,6 +20,7 @@
     'rxjs':                       { defaultExtension: 'js' },
     'ng2-charts':                 { defaultExtension: 'js' },
     'angular2-in-memory-web-api': { main: 'index.js', defaultExtension: 'js' },
+    'symbol-observable':          { defaultExtension: 'js', main: 'index.js'},
   };
   var ngPackageNames = [
     'common',

@@ -48,11 +48,17 @@ body {
     margin: 20px 0;
 }
 
-.fa-usd, .fa-history {
+.fa-usd, .fa-history, .fa-info-circle {
     color: rgba(0, 0, 0, 0.65)
 }
 
 .spinner {
     margin: 70px auto;
     display: block;
+}
+
+.bootstrap-switch { height: 1.9em }
+
+[hidden] {
+    display: none;
 }
