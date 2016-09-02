@@ -60,9 +60,9 @@ export class InfoComponent implements OnInit{
         this.loaded = true;
         this.eventLoaded.emit("info");
         $(this.el.nativeElement.querySelector('#checkbox')).bootstrapSwitch('state', this.info.s);
-        $('.selectpicker').selectpicker('val', this.info.t==0 ? "Inteligent" : "Real time");
+        $('#node-mode').selectpicker('val', this.info.t==0 ? "Inteligent" : "Real time");
         $(this.el.nativeElement.querySelector('#checkbox')).on('switchChange.bootstrapSwitch', () => {this.toggleStatus();});
-        $('.selectpicker').on('change', () => { this.toggleStatusMode(); });
+        $('#node-mode').on('change', () => { this.toggleStatusMode(); });
 
     }
 

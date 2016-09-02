@@ -21,7 +21,7 @@ export class SchedulesComponent implements OnInit {
     ngOnInit() {
         this.getSchedules();
         $('[data-toggle="tooltip"]').tooltip();
-        $('.selectpicker').selectpicker({
+        $('#schedule-repeat').selectpicker({
             size: 4
         });
     }
@@ -43,15 +43,16 @@ export class SchedulesComponent implements OnInit {
 
     add() {
         this.model = new Schedule({});
-        $('.selectpicker').selectpicker('val', "Don't repeat");
+        $('#schedule-repeat').selectpicker('val', "Don't repeat");
     }
 
     mod(schedule){
         this.model.copyFrom(schedule);
-        $('.selectpicker').selectpicker('val', this.model.repeat);
+        $('#schedule-repeat').selectpicker('val', this.model.repeat);
     }
 
     addOrUpdate() {
+        this.model.repeat = $('#schedule-repeat').find("option:selected").text();
         if (!this.model.validate())
         {
             alert("Los datos no son correctos");
