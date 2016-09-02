@@ -10,6 +10,7 @@ export class IOTService {
     private historyUrl = this.baseUrl + 'history';  // URL to history endpoint
     private infoUrl = this.baseUrl + 'info';
     private stateUrl = this.baseUrl + 'state';
+    private schedulesUrl = this.baseUrl + 'schedules';
 
     getHistory (token): Observable<number[]> {
         var authHeader = new Headers();
@@ -29,7 +30,7 @@ export class IOTService {
             .catch(this.handleError);
     }
 
-    updateState(token, info): Observable {
+    updateState(token, info): Observable<void> {
         var authHeader = new Headers();
         authHeader.append('Network-token', token);
         let body = JSON.stringify({ "s":info.s, "t":info.t });
@@ -40,9 +41,52 @@ export class IOTService {
             .catch(this.handleError);
     }
 
+    getSchedules (token): Observable<any[]> {
+        var authHeader = new Headers();
+        authHeader.append('Network-token', token);
+
+        return this.http.get(this.schedulesUrl, {headers: authHeader})
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    updateSchedule(token, schedule): Observable<void> {
+        var authHeader = new Headers();
+        authHeader.append('Network-token', token);
+        let body = JSON.stringify(schedule);
+        let headers = new Headers({ 'Network-token': token });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.put(this.schedulesUrl, body, options)
+            .catch(this.handleError);
+    }
+
+    addSchedule(token, schedule): Observable<any> {
+        var authHeader = new Headers();
+        authHeader.append('Network-token', token);
+        let body = JSON.stringify(schedule);
+        let headers = new Headers({ 'Network-token': token });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.post(this.schedulesUrl, body, options)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    deleteSchedule(token, id): Observable<void> {
+        var authHeader = new Headers();
+        authHeader.append('Network-token', token);
+        let headers = new Headers({ 'Network-token': token });
+        let options = new RequestOptions({ headers: headers });
+
+        return this.http.delete(this.schedulesUrl + '/' + id, options)
+            .catch(this.handleError);
+    }
+
     private extractData(res: Response) {
         if (res == null || res.totalBytes == 0)
             return "";
+        //console.log(res);
         let body = res.json();
         return body || { };
     }

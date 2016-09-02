@@ -48,8 +48,13 @@ body {
     margin: 20px 0;
 }
 
-.fa-usd, .fa-history, .fa-info-circle {
+.fa-usd, .fa-history, .fa-info-circle, .fa-calendar {
     color: rgba(0, 0, 0, 0.65)
+}
+
+.fa-plus {
+    color: #333;
+    font-size: 1.2em;
 }
 
 .spinner {
@@ -58,6 +63,23 @@ body {
 }
 
 .bootstrap-switch { height: 1.9em }
+
+.table-hover>tbody>tr:hover {
+    background-color: rgba(100, 100, 100, 0.2);
+}
+
+.form-group-child {
+    margin-left: 10px;
+}
+
+.scheduleTime td {
+    padding: 5px 0
+}
+
+[hidden].fa-pencil {
+    visibility: hidden;
+    display: inline !important;
+}
 
 [hidden] {
     display: none;

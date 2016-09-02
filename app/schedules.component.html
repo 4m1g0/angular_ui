@@ -1,0 +1,93 @@
+<img [hidden]="loaded" class="spinner" src="../img/ring-alt.svg">
+<table [hidden]="!loaded" class="table table-hover">
+    <thead>
+    <tr>
+        <th>Start</th>
+        <th>End</th>
+        <th>Duration</th>
+        <th>Repeat</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of schedules" (click)="mod(s);"
+        (mouseenter)="s.showEdit=true" (mouseleave)="s.showEdit=false"
+        data-toggle="modal" data-target="#popUpLogin">
+        <td>{{s.startDate + " " + s.startTime}}</td>
+        <td>{{s.endTime + " " + s.nextDay}}</td>
+        <td>{{s.duration}}</td>
+        <td>{{s.repeat}}</td>
+        <td><i class="fa fa-pencil" aria-hidden="true" [hidden]="!s.showEdit"></i></td>
+    <tr>
+        <td colspan="5" align="center" style="border-bottom:1px solid #ddd;" (click)="add()" data-toggle="modal" data-target="#popUpLogin">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<!--  Modal window to log in with form  -->
+<div class="modal fade" id="popUpLogin">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Header  -->
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Schedule</h3>
+            </div>
+            <!-- body  -->
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label>
+                            Interval:
+                            <i title="In which period of time would you like your appliance to be scheduled?"
+                               data-toggle="tooltip" data-placement="right" class="fa fa-question-circle" aria-hidden="true"></i>
+                        </label><br />
+                        <div class="form-group-child">
+                            <table class="scheduleTime">
+                                <tr>
+                                    <td><label style="color:rgba(0,0,0,0.6);">Trom:&nbsp;</label></td>
+                                    <td><input [(ngModel)]="model.startDateValue" [ngModelOptions]="{standalone: true}" type="date"/></td>
+                                    <td><input [(ngModel)]="model.startTime" [ngModelOptions]="{standalone: true}" type="time" /></td>
+                                </tr>
+                                <tr>
+                                    <td><label style="color:rgba(0,0,0,0.6);">To:&nbsp;</label></td>
+                                    <td>{{ (model.endDate) }}</td>
+                                    <td><input type="time" [(ngModel)]="model.endTime" [ngModelOptions]="{standalone: true}" (change)="model.updateEndDate()"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Duration:</label>
+                        <i title="How long would you like the appliance to be on?"
+                           data-toggle="tooltip" data-placement="right" class="fa fa-question-circle" aria-hidden="true"></i><br />
+                        <div class="form-group-child"><input type="time" [(ngModel)]="model.durationValue" [ngModelOptions]="{standalone: true}"/></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Repeat:</label>
+                        <i title="How often would you like to repeat it?"
+                           data-toggle="tooltip" data-placement="right" class="fa fa-question-circle" aria-hidden="true"></i><br />
+                        <div class="form-group-child">
+                            <select class="selectpicker" [(ngModel)]="model.repeat" [ngModelOptions]="{standalone: true}">
+                                <option>Don't repeat</option>
+                                <option>Hourly</option>
+                                <option>Daily</option>
+                                <option>Weekly</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- footer  -->
+            <div class="modal-footer">
+                <button [hidden]="model.id==undefined" class="btn btn-danger" type="button" data-dismiss="modal" style="float:left;" (click)="delete()">DELETE</button>
+                <button class="btn btn-primary" type="button" data-dismiss="modal" (click)="addOrUpdate()">Send</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,10 +19,12 @@
                 <history *ngIf="loadHistory" [token]="token">Loading...</history>
             </div>
         </div>
-        <!--<div class="col-md-6">
+        <div class="col-md-6">
             <div class="col-md-12 widget">
-                <prices>Loading...</prices>
+                <h2><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;Schedules</h2>
+                <img *ngIf="!loadSchedules" class="spinner" src="../img/ring-alt.svg">
+                <schedules *ngIf="loadSchedules" [token]="token" (eventLoaded)="eventLoaded($event)">Loading...</schedules>
             </div>
-        </div>-->
+        </div>
     </div>
 </div>
