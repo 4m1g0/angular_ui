@@ -14,7 +14,7 @@ export class SchedulesComponent implements OnInit {
     @Input() token:string;
     errorMessage:string;
     schedules:Schedule[];
-    model:Schedule = new Schedule({});
+    model:Schedule = new Schedule({"r":0});
 
     constructor (private iotService: IOTService) { }
 
@@ -39,25 +39,31 @@ export class SchedulesComponent implements OnInit {
     isLoaded() {
         this.loaded = true;
         this.eventLoaded.emit("schedules");
-        console.log(this.schedules);
     }
 
     add() {
         this.model = new Schedule({});
+        $('.selectpicker').selectpicker('val', "Don't repeat");
     }
 
     mod(schedule){
         this.model.copyFrom(schedule);
+        $('.selectpicker').selectpicker('val', this.model.repeat);
     }
 
     addOrUpdate() {
-        console.log(this.model.id);
+        if (!this.model.validate())
+        {
+            alert("Los datos no son correctos");
+            return;
+        }
+
         var schedule = this.model.toSchedule();
+
         if (this.model.id == null){
             this.iotService.addSchedule(this.token, schedule)
                 .subscribe(object => this.updateScheduleInfo(schedule, object));
 
-            console.log(schedule);
         }
         else{
             this.iotService.updateSchedule(this.token, schedule)
@@ -71,16 +77,16 @@ export class SchedulesComponent implements OnInit {
     }
 
     updateScheduleInfo(schedule, object) {
-        console.log("updating");
-        schedule.id = object.id;
+        this.model.id = object.id;
         this.schedules.push(this.model);
     }
 
     findAndUpdate(schedule){
         for (var i = 0; i < this.schedules.length; i++) {
             if (this.schedules[i].id == schedule.id)
-                this.schedules[i] = schedule;
+                this.schedules[i] = new Schedule(schedule);
         }
+        //this.schedules = this.schedules.slice();
     }
 
     findAndDelete(id){

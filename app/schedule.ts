@@ -12,8 +12,6 @@ export class Schedule {
 
     constructor(s:any) {
         var end = s.s + s.i;
-        console.log("id;");
-        console.log(s.id);
         this.id = s.id;
         this.startDate = this.toDate(s.s);
         this.startTime = this.toTime(s.s);
@@ -39,25 +37,39 @@ export class Schedule {
         this.endDate = origin.endDate;
     }
 
+    dateFromUnixTimestamp(timestamp) {
+        return new Date((timestamp + new Date().getTimezoneOffset()* 60)*1000)
+    }
+
+    validate(){
+        var d = new Date(this.startDateValue);
+        this.startDate = this.toDate(this.toUnixTimestamp(d));
+
+
+        var s = this.toSchedule();
+        if (s.i > 86400) // interval > 24h
+            return 0;
+
+        if (s.d > 86400) // duration > 24h
+        if (s.d > 86400) // duration > 24h
+            return 0;
+
+        this.duration = this.toDuration(this.fromTimeValue(this.durationValue));
+        this.nextDay = this.toDateDiff(s.s, s.s + s.i);
+
+        return 1;
+    }
+
     toSchedule() {
         var start = this.fromDateValue(this.startDateValue) + this.fromTimeValue(this.startTime);
         var end =  this.fromDateValue(this.startDateValue) + this.fromTimeValue(this.endTime)
         if (this.endTime < this.startTime)
             end += 86400; // 1d (next day)
 
-        console.log("toSchedule");
-        console.log(start);
-        console.log(this.startDateValue);
-        console.log(this.startTime);
-        console.log(end);
-        console.log(this.endDate);
-        console.log(this.endTime);
-        console.log("id");
-        console.log(this.id);
         return {
             "id":this.id,
             "s":start,
-            'i':end,
+            'i':end-start,
             'd':this.fromTimeValue(this.durationValue),
             'r':this.fromRepeatString(this.repeat)
         };
@@ -82,11 +94,13 @@ export class Schedule {
 
     fromDateValue(value){
         var date = new Date(value);
+        date.setSeconds(date.getSeconds() + date.getTimezoneOffset()*60);
         return this.toUnixTimestamp(date);
     }
 
     fromTimeValue(value){
         var date = new Date("1970-01-01" + " " + value);
+        date.setSeconds(date.getSeconds() + (date.getTimezoneOffset()+60)*60);
         return this.toUnixTimestamp(date);
     }
 
@@ -97,14 +111,16 @@ export class Schedule {
     toUnixTimestamp(date) {
         if (date == null)
             return 0;
-        return new Date(date).getTime()/1000;
+
+        var d = new Date(date);
+        return (d.getTime() - (d.getTimezoneOffset() * 60 * 1000)) / 1000;
     }
 
     toDate(timestamp){
-        var d = new Date(timestamp*1000);
-        var month = '' + (d.getMonth() + 1)
-        var day = '' + d.getDate()
-        var year = '' + d.getFullYear()
+        var d = this.dateFromUnixTimestamp(timestamp);
+        var month = '' + (d.getMonth() + 1);
+        var day = '' + d.getDate();
+        var year = '' + d.getFullYear();
 
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
@@ -113,9 +129,8 @@ export class Schedule {
     }
 
     toTime(timestamp){
-        var d = new Date(timestamp * 1000);
-        var hour = '' + d.getHours();
-        var minute = '' + d.getMinutes();
+        var hour = '' + Math.floor((timestamp % 86400) / 3600);
+        var minute = '' + Math.floor((timestamp  % 3600) / 60);
 
         if (hour.length < 2) hour = '0' + hour;
         if (minute.length < 2) minute = '0' + minute;
@@ -146,13 +161,13 @@ export class Schedule {
     }
 
     toRepeatString(timestamp){
-        if (timestamp > 60 * 60 * 24 * 7)
+        if (timestamp >= 60 * 60 * 24 * 7)
             return "Weekly";
 
-        if (timestamp > 60 * 60 * 24)
+        if (timestamp >= 60 * 60 * 24)
             return "Daily";
 
-        if (timestamp > 60 * 60)
+        if (timestamp >= 60 * 60)
             return "Hourly";
 
         return "Don't repeat";
@@ -161,7 +176,7 @@ export class Schedule {
     toDateInputValue(timestamp) {
         if (timestamp == null)
             return "";
-        var date = new Date(timestamp * 1000);
+        var date = this.dateFromUnixTimestamp(timestamp);
         return date.toJSON().slice(0,10);
     }
 
