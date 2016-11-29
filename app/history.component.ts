@@ -46,7 +46,12 @@ export class HistoryComponent implements OnInit {
     getHistory() {
         this.historyService.getHistory(this.token)
             .subscribe(
-                history => {this.history = history.map((value) => { return value * 230 / 100 } ); console.log("AAAA" + history); this.isLoaded()},
+                history => {this.history = history.map((value) => {
+                    var power = value * 220 / 100;
+                    power -= 20;
+                    if (power < 0) power = 0;
+                    return power;
+                } ); this.isLoaded()},
                 error =>  this.errorMessage = <any>error);
     }
 
@@ -58,10 +63,7 @@ export class HistoryComponent implements OnInit {
         this.loaded = true;
     }
 
-    public lineChartOptions:any = {
-        animation: false,
-        responsive: true
-    };
+
     public lineChartColours:Array<any> = [
         { // red
             backgroundColor: 'rgba(255,100,100,0.2)',
@@ -74,4 +76,17 @@ export class HistoryComponent implements OnInit {
     ];
     public lineChartLegend:boolean = false;
     public lineChartType:string = 'line';
+
+    public lineChartOptions:any = {
+        animation: false,
+        responsive: true,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 2000,
+                }
+            }]
+        }
+    };
 }

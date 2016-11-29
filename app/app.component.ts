@@ -14,7 +14,7 @@ import {CookieService} from 'angular2-cookie/core';
 
 export class AppComponent {
     master = 'Master Node';
-    nodes = ['Test node1', 'Test node2'];
+    nodes = [];
     token: string;
 
     constructor(private _cookieService:CookieService){

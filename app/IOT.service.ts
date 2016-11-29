@@ -6,7 +6,8 @@ import { Observable }     from 'rxjs/Observable';
 export class IOTService {
     constructor (private http: Http) {}
 
-    private baseUrl = 'http://137.74.114.25:9001/'
+    //private baseUrl = 'http://137.74.114.25:9001/'
+    private baseUrl = 'http://aalborgiot.4m1g0.com:9001/';
     private historyUrl = this.baseUrl + 'history';  // URL to history endpoint
     private infoUrl = this.baseUrl + 'info';
     private stateUrl = this.baseUrl + 'state';

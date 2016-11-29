@@ -6,7 +6,8 @@ import { Observable }     from 'rxjs/Observable';
 export class PricingService {
     constructor (private http: Http) {}
 
-    private pricesUrl = 'http://137.74.114.25:9000/';  // URL to web API
+    //private pricesUrl = 'http://137.74.114.25:9000/';  // URL to web API
+    private pricesUrl = 'http://aalborgiot.4m1g0.com:9000/';  // URL to web API
 
     getPrices (): Observable<number[]> {
         var date = new Date();
