@@ -24,9 +24,10 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent }  from './app.component';
 import {FormsModule} from "@angular/forms";
 import {SchedulesComponent} from "./schedules.component";
+import {ChartsModule} from 'ng2-charts/ng2-charts';
 
 @NgModule({
-    imports:      [ BrowserModule, HttpModule, JsonpModule, FormsModule ],
+    imports:      [ BrowserModule, HttpModule, JsonpModule, FormsModule, ChartsModule ],
     declarations: [ AppComponent, SchedulesComponent ],
     bootstrap:    [ AppComponent ]
 })

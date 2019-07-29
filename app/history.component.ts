@@ -19,13 +19,14 @@
 
 import {Component, Input, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
-import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
+//import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
+
 import {IOTService} from "./IOT.service";
 
 @Component({
     selector: 'history',
     templateUrl: 'app/history.component.html',
-    directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
+    directives: [NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
     providers: [IOTService],
 })
 

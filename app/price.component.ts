@@ -19,13 +19,13 @@
 
 import {Component, OnInit} from '@angular/core';
 import {CORE_DIRECTIVES, FORM_DIRECTIVES, NgClass} from '@angular/common';
-import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
+//import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 import {PricingService} from "./pricing.service";
 
 @Component({
     selector: 'prices',
     templateUrl: 'app/price.component.html',
-    directives: [CHART_DIRECTIVES, NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
+    directives: [ NgClass, CORE_DIRECTIVES, FORM_DIRECTIVES],
     providers: [PricingService]
 })
 
